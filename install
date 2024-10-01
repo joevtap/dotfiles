@@ -1,0 +1,22 @@
+#!/usr/bin/sh
+
+# Dependencies:
+# - git
+# - wget
+
+# Globals
+DOTFILES_REPO=https://github.com/joevtap/dotfiles.git
+DOTFILES=~/.dotfiles
+CONFIG_FILES_PATH=$DOTFILES/.config
+
+# 1. Clone repo
+git clone $DOTFILES_REPO $DOTFILES
+
+# 2. Link config filesc
+printf "Linking config files...\n\n"
+
+printf "Linking .zshrc\n"
+ln -s $CONFIG_FILES_PATH/.zshrc ~/.zshrc
+
+printf "Linking .config\n"
+ln -s $CONFIG_FILES_PATH/.gitconfig ~/.gitconfig
