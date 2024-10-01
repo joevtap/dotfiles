@@ -10,9 +10,11 @@ DOTFILES=~/.dotfiles
 CONFIG_FILES_PATH=$DOTFILES/.config
 
 # 1. Clone repo
+printf "Cloning repo...\n\n"
+
 git clone $DOTFILES_REPO $DOTFILES
 
-# 2. Link config filesc
+# 2. Link config files
 printf "Linking config files...\n\n"
 
 printf "Linking .zshrc\n"
