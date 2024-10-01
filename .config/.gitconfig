@@ -1,0 +1,12 @@
+[commit]
+	gpgsign = false
+[user]
+	signingkey = EB30F8BE8386279CA2F1C184D7F470E0EACA7422
+	email = joelvtorres2024@gmail.com
+	name = joevtap
+[init]
+	defaultBranch = main
+[core]
+	editor = vim
+[gpg]
+	program = /usr/bin/gpg
