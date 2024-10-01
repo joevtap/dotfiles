@@ -9,16 +9,48 @@ DOTFILES_REPO=https://github.com/joevtap/dotfiles.git
 DOTFILES=~/.dotfiles
 CONFIG_FILES_PATH=$DOTFILES/.config
 
-# 1. Clone repo
+# Install other dependencies
+printf "Installing dependencies...\n\n"
+sudo apt install zsh vim curl sed
+
+# Install oh-my-zsh
+printf "Installing oh-my-zsh...\n\n"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# Install powerlevel10k
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+
+# Set ZSH_THEME="powerlevel10k/powerlevel10k" in .zshrc
+sed -i 's/^ZSH_THEME=.*/ZSH_THEME="powerlevel10k\/powerlevel10k"/' ~/.zshrc
+
+# Install asdf
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.1
+
+# Add asdf plugin to .zshrc
+if grep -q 'plugins=' ~/.zshrc; then
+  sed -i 's/plugins=(\(.*\))/plugins=(\1 asdf)/' ~/.zshrc
+else
+  echo -e '\nplugins=(asdf)' >> ~/.zshrc
+fi
+
+# Clone repo
 printf "Cloning repo...\n\n"
 
 git clone $DOTFILES_REPO $DOTFILES
 
-# 2. Link config files
+# Link config files
 printf "Linking config files...\n\n"
 
 printf "Linking .zshrc\n"
+if [ -f ~/.zshrc ]; then
+  printf ".zshrc exists, moving to .dotfiles...\n"
+  mv ~/.zshrc $DOTFILES/.zshrc
+fi
 ln -s $CONFIG_FILES_PATH/.zshrc ~/.zshrc
 
 printf "Linking .config\n"
+if [ -f ~/.gitconfig ]; then
+  printf ".gitconfig exists, moving to .dotfiles...\n"
+  mv ~/.gitconfig $DOTFILES/.gitconfig
+fi
 ln -s $CONFIG_FILES_PATH/.gitconfig ~/.gitconfig
