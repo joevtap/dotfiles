@@ -41,14 +41,14 @@ git clone $DOTFILES_REPO $DOTFILES
 # Link config files
 printf "Linking config files...\n\n"
 
-printf "Linking .zshrc\n"
-if [ -f ~/.zshrc ]; then
-  printf ".zshrc exists, moving to .dotfiles...\n"
-  mv ~/.zshrc $DOTFILES/.zshrc
-fi
-ln -s $CONFIG_FILES_PATH/.zshrc ~/.zshrc
+# printf "Linking .zshrc\n"
+# if [ -f ~/.zshrc ]; then
+#   printf ".zshrc exists, moving to .dotfiles...\n"
+#   mv ~/.zshrc $DOTFILES/.zshrc
+# fi
+# ln -s $CONFIG_FILES_PATH/.zshrc ~/.zshrc
 
-printf "Linking .config\n"
+printf "Linking .gitconfig\n"
 if [ -f ~/.gitconfig ]; then
   printf ".gitconfig exists, moving to .dotfiles...\n"
   mv ~/.gitconfig $DOTFILES/.gitconfig
